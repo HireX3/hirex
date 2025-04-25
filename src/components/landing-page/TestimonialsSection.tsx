@@ -1,8 +1,46 @@
+'use client'
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export default function TestimonialsSection() {
+  // Animation variants for staggered animations
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.4,
+        delayChildren: 0.3,
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50 
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 1,
+        ease: [0.25, 0.1, 0.25, 1],
+      }
+    }
+  };
+
+  // Companies for the marquee
+  const companies = [
+    'Microsoft', 'Adobe', 'Shopify', 'Airbnb', 'Spotify', 'Tesla', 'Netflix', 'Uber', 'Dropbox', 'Slack'
+  ];
+  
+  // Double the array for smooth infinite scrolling
+  const duplicatedCompanies = [...companies, ...companies];
+
   const testimonials = [
     {
       quote: "HireX completely transformed our hiring process. We've reduced our time-to-hire by 60% while improving the quality of our candidates.",
@@ -29,47 +67,111 @@ export default function TestimonialsSection() {
       avatar: "4"
     }
   ];
+
   return (
-    <section id="testimonials" className="py-20 px-8 bg-white dark:bg-neutral-800">
+    <section id="testimonials" className="py-20 px-8 bg-white dark:bg-neutral-800 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ 
+            duration: 0.8,
+            ease: [0.25, 0.1, 0.25, 1]
+          }}
+        >
           <h2 className="text-3xl font-bold mb-4">What Our Customers Say</h2>
           <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
             Companies of all sizes are transforming their hiring process with HireX.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <motion.div 
+          className="grid md:grid-cols-2 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="overflow-hidden border-none shadow-lg">
-              <CardContent className="p-8">
-                <div className="flex gap-4 items-start">
-                  <div className="flex-shrink-0">
-                    <Avatar className="h-12 w-12 border-2 border-blue-200">
-                      <AvatarImage src={`https://i.pravatar.cc/100?img=${testimonial.avatar}`} />
-                      <AvatarFallback>{testimonial.author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                    </Avatar>
-                  </div>
-                  <div>
-                    <div className="mb-4 text-neutral-600 dark:text-neutral-300 italic">
-                      "{testimonial.quote}"
-                    </div>
+            <motion.div 
+              key={index} 
+              variants={cardVariants}
+              custom={index}
+            >
+              <Card className="overflow-hidden border-none shadow-lg h-full">
+                <CardContent className="p-8">
+                  <div className="flex gap-4 items-start">
+                    <motion.div 
+                      className="flex-shrink-0"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 260, 
+                        damping: 20, 
+                        delay: 0.2 + index * 0.1 
+                      }}
+                    >
+                      <Avatar className="h-12 w-12 border-2 border-blue-200">
+                        <AvatarImage src={`https://i.pravatar.cc/100?img=${testimonial.avatar}`} />
+                        <AvatarFallback>{testimonial.author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      </Avatar>
+                    </motion.div>
                     <div>
-                      <p className="font-semibold">{testimonial.author}</p>
-                      <p className="text-sm text-neutral-500 dark:text-neutral-400">{testimonial.title}</p>
+                      <motion.div 
+                        className="mb-4 text-neutral-600 dark:text-neutral-300 italic"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
+                      >
+                        "{testimonial.quote}"
+                      </motion.div>
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.5 + index * 0.1 }}
+                      >
+                        <p className="font-semibold">{testimonial.author}</p>
+                        <p className="text-sm text-neutral-500 dark:text-neutral-400">{testimonial.title}</p>
+                      </motion.div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
         
-        <div className="mt-16 flex flex-wrap justify-center gap-12 items-center">
-          <div className="text-neutral-400 dark:text-neutral-500 font-bold text-xl">Trusted by:</div>
-          {['Microsoft', 'Adobe', 'Shopify', 'Airbnb', 'Spotify'].map((company, index) => (
-            <div key={index} className="text-neutral-500 dark:text-neutral-400 font-bold text-xl">{company}</div>
-          ))}
+        <div className="mt-16 relative py-10">
+          <div className="text-neutral-400 dark:text-neutral-500 font-bold text-xl text-center mb-8">Trusted by:</div>
+          
+          <div className="relative w-full overflow-hidden">
+            <motion.div 
+              className="flex whitespace-nowrap"
+              initial={{ x: 0 }}
+              animate={{ x: "-50%" }}
+              transition={{ 
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 20,
+                ease: "linear"
+              }}
+            >
+              {duplicatedCompanies.map((company, index) => (
+                <div 
+                  key={index} 
+                  className="mx-12 text-neutral-500 dark:text-neutral-400 font-bold text-xl inline-block"
+                >
+                  {company}
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

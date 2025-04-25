@@ -1,7 +1,48 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "framer-motion";
 
 export default function PricingSection() {
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1]
+      }
+    }
+  };
+
+  const popularBadgeVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay: 0.6,
+        duration: 0.5,
+        type: "spring",
+        stiffness: 300,
+        damping: 15
+      }
+    }
+  };
+  
   const pricingPlans = [
     {
       name: "Starter",
@@ -55,65 +96,107 @@ export default function PricingSection() {
   return (
     <section id="pricing" className="py-20 px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ 
+            duration: 0.8,
+            ease: [0.25, 0.1, 0.25, 1]
+          }}
+        >
           <h2 className="text-3xl font-bold mb-4">Simple, Transparent Pricing</h2>
           <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
             Choose the plan that fits your hiring needs. All plans include a 14-day free trial.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {pricingPlans.map((plan, index) => (
-            <Card 
-              key={index} 
-              className={`relative overflow-hidden ${plan.highlighted ? 'border-2 border-blue-500 shadow-lg shadow-blue-100 dark:shadow-blue-900/20' : ''}`}
+            <motion.div
+              key={index}
+              variants={cardVariants}
+              custom={index}
+              whileHover={{ 
+                y: -10,
+                transition: { duration: 0.3 }
+              }}
             >
-              {plan.highlighted && (
-                <div className="absolute top-0 right-0">
-                  <div className="bg-blue-500 text-white text-xs px-3 py-1 rotate-45 translate-x-[30%] translate-y-[30%] w-[120px] text-center">
+              <Card 
+                className={`relative overflow-hidden h-full flex flex-col ${plan.highlighted ? 'border-2 border-blue-500 shadow-lg shadow-blue-100 dark:shadow-blue-900/20' : ''}`}
+              >
+                {plan.highlighted && (
+                  <motion.div 
+                    className="absolute top-0 right-0 bg-blue-500 text-white text-xs px-3 py-1 rotate-45 translate-x-8 translate-y-4"
+                    variants={popularBadgeVariants}
+                  >
                     Most Popular
-                  </div>
-                </div>
-              )}
-              <CardHeader>
-                <CardTitle>{plan.name}</CardTitle>
-                <CardDescription>{plan.description}</CardDescription>
-              </CardHeader>              <CardContent className="flex flex-col h-full">
-                <div className="mb-6">
-                  <span className="text-4xl font-bold">${plan.price}</span>
-                  <span className="text-neutral-500 dark:text-neutral-400">/month</span>
-                </div>
+                  </motion.div>
+                )}
                 
-                <ul className="space-y-3 flex-grow">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex gap-2 items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500 flex-shrink-0">
-                        <path d="M20 6L9 17l-5-5"></path>
-                      </svg>
-                      <span className="text-neutral-600 dark:text-neutral-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-              <CardFooter className="mt-auto">
-                <Button 
-                  className={`w-full ${plan.highlighted ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white' : ''}`}
-                  variant={plan.highlighted ? 'default' : 'outline'}
-                >
-                  {plan.ctaText}
-                </Button>
-              </CardFooter>
-            </Card>
+                <CardHeader>
+                  <CardTitle>{plan.name}</CardTitle>
+                  <CardDescription>{plan.description}</CardDescription>
+                </CardHeader>
+                
+                <CardContent className="flex-grow">
+                  <div className="mb-6">
+                    <motion.span 
+                      className="text-4xl font-bold"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.4 + index * 0.1, duration: 0.8 }}
+                    >
+                      ${plan.price}
+                    </motion.span>
+                    <span className="text-neutral-500 dark:text-neutral-400">/month</span>
+                  </div>
+                  
+                  <ul className="space-y-3">
+                    {plan.features.map((feature, i) => (
+                      <motion.li 
+                        key={i} 
+                        className="flex gap-2 items-center"
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.5 + (i * 0.05) + (index * 0.1), duration: 0.5 }}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500">
+                          <path d="M20 6L9 17l-5-5"></path>
+                        </svg>
+                        <span className="text-neutral-600 dark:text-neutral-300">{feature}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </CardContent>
+                
+                <CardFooter className="mt-auto">
+                  <motion.div
+                    className="w-full"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    <Button 
+                      className={`w-full ${plan.highlighted ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white' : ''}`}
+                      variant={plan.highlighted ? 'default' : 'outline'}
+                    >
+                      {plan.ctaText}
+                    </Button>
+                  </motion.div>
+                </CardFooter>
+              </Card>
+            </motion.div>
           ))}
-        </div>
-        
-        <div className="mt-16 text-center">
-          <h3 className="text-xl font-semibold mb-4">Need a custom solution?</h3>
-          <p className="text-neutral-600 dark:text-neutral-300 mb-6">
-            Contact our sales team for a custom plan tailored to your specific needs.
-          </p>
-          <Button variant="outline">Contact Sales</Button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
