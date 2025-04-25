@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { SplineScene } from "@/components/ui/splite";
 
 export default function HeroSection() {
   return (
@@ -51,16 +51,14 @@ export default function HeroSection() {
             <span className="text-sm text-neutral-600 dark:text-neutral-400">Reduction in bias</span>
           </div>
         </div>
-      </div>
-      <div className="flex-1 relative max-w-md">
+      </div>      <div className="flex-1 relative max-w-md">
         <div className="absolute -z-10 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 blur-3xl opacity-20 w-full h-full"></div>
-        <Image 
-          src="/window.svg"
-          alt="HireX Dashboard"
-          width={600}
-          height={400}
-          className="rounded-lg shadow-xl dark:border dark:border-white/10"
-        />
+        <div className="h-[400px] w-full">
+          <SplineScene 
+            scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" 
+            className="rounded-lg shadow-xl dark:border dark:border-white/10"
+          />
+        </div>
       </div>
     </section>
   );
