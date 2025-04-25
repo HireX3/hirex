@@ -1,5 +1,5 @@
 'use client'
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function HowItWorksSection() {
@@ -235,10 +235,9 @@ export default function HowItWorksSection() {
                     </div>
                   </motion.div>
                 )}
-                
-                {index === 2 && (
+                  {index === 2 && (
                   <div className="mt-4 p-4 border border-dashed border-purple-300 dark:border-purple-800 rounded-lg text-sm italic text-neutral-600 dark:text-neutral-400">
-                    "Our AI conducts structured interviews with natural language processing, adapting questions based on each candidate's responses for a personalized experience."
+                    &ldquo;Our AI conducts structured interviews with natural language processing, adapting questions based on each candidate&apos;s responses for a personalized experience.&rdquo;
                   </div>
                 )}
               </div>

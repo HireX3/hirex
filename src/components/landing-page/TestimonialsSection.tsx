@@ -1,9 +1,7 @@
 'use client'
-import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
 
 export default function TestimonialsSection() {
   // Animation variants for staggered animations
@@ -39,31 +37,29 @@ export default function TestimonialsSection() {
   ];
   
   // Double the array for smooth infinite scrolling
-  const duplicatedCompanies = [...companies, ...companies];
-
-  const testimonials = [
+  const duplicatedCompanies = [...companies, ...companies];  const testimonials = [
     {
-      quote: "HireX completely transformed our hiring process. We've reduced our time-to-hire by 60% while improving the quality of our candidates.",
-      author: "Sarah Johnson",
-      title: "Head of HR, TechVision Inc.",
+      quote: 'HireX completely transformed our hiring process. We\'ve reduced our time-to-hire by 60% while improving the quality of our candidates.',
+      author: 'Sarah Johnson',
+      title: 'Head of HR, TechVision Inc.',
       avatar: "1"
     },
     {
-      quote: "The AI interview feature is a game-changer. Our team now focuses only on pre-qualified candidates who are genuinely interested in our company.",
-      author: "Michael Chen",
-      title: "CTO, Nexus Software",
+      quote: 'The AI interview feature is a game-changer. Our team now focuses only on pre-qualified candidates who are genuinely interested in our company.',
+      author: 'Michael Chen',
+      title: 'CTO, Nexus Software',
       avatar: "2"
     },
     {
-      quote: "We've seen a 40% increase in diverse hiring since implementing HireX. The bias reduction algorithms really work.",
-      author: "Priya Patel",
-      title: "DEI Director, Global Innovations",
+      quote: 'We\'ve seen a 40% increase in diverse hiring since implementing HireX. The bias reduction algorithms really work.',
+      author: 'Priya Patel',
+      title: 'DEI Director, Global Innovations',
       avatar: "3"
     },
     {
-      quote: "The analytics dashboard gives us insights we never had before. We now know exactly where our top performers are coming from.",
-      author: "James Wilson",
-      title: "Talent Acquisition Manager, Stellar Group",
+      quote: 'The analytics dashboard gives us insights we never had before. We now know exactly where our top performers are coming from.',
+      author: 'James Wilson',
+      title: 'Talent Acquisition Manager, Stellar Group',
       avatar: "4"
     }
   ];
@@ -120,15 +116,14 @@ export default function TestimonialsSection() {
                         <AvatarFallback>{testimonial.author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                       </Avatar>
                     </motion.div>
-                    <div>
-                      <motion.div 
+                    <div>                      <motion.div 
                         className="mb-4 text-neutral-600 dark:text-neutral-300 italic"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.4 + index * 0.1 }}
                       >
-                        "{testimonial.quote}"
+                        &ldquo;{testimonial.quote}&rdquo;
                       </motion.div>
                       <motion.div
                         initial={{ opacity: 0 }}
