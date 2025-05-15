@@ -46,7 +46,7 @@ export default function PricingSection() {
   const pricingPlans = [
     {
       name: "Starter",
-      price: 199,
+      price: 0,
       description: "Perfect for small businesses and startups",
       features: [
         "Up to 5 job postings per month",
@@ -60,7 +60,7 @@ export default function PricingSection() {
     },
     {
       name: "Professional",
-      price: 499,
+      price: 20,
       description: "For growing teams with advanced needs",
       features: [
         "Up to 20 job postings per month",
@@ -76,7 +76,7 @@ export default function PricingSection() {
     },
     {
       name: "Enterprise",
-      price: 999,
+      price: '50 per user',
       description: "For large organizations with complex hiring needs",
       features: [
         "Unlimited job postings",

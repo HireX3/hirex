@@ -18,7 +18,7 @@ export default function Navbar() {
       }
 
       // Get all section elements dynamically
-      const sectionIds = ["hero", "features", "how-it-works", "testimonials", "pricing", "contact"];
+      const sectionIds = ["hero", "features", "how-it-works", "pricing", "contact"];
       const sectionElements = sectionIds.map(id => ({ 
         id, 
         element: document.getElementById(id) 
@@ -61,9 +61,8 @@ export default function Navbar() {
     <nav className={`fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-5 transition-all duration-300 ${
       scrolled ? "bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md shadow-sm" : "bg-transparent"
     }`}>
-      <div className="flex items-center gap-2">
-        <a href="#" onClick={() => scrollToSection("hero")} className="flex items-center gap-2">
-          <span className="font-bold text-2xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">HireX</span>
+      <div className="flex items-center gap-2">        <a href="#" onClick={() => scrollToSection("hero")} className="flex items-center gap-2">
+          <img src="/hirex.svg" alt="HireX Logo" className="h-8" />
           <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full dark:bg-blue-900 dark:text-blue-200">Beta</span>
         </a>
       </div>
@@ -83,13 +82,6 @@ export default function Navbar() {
           onClick={() => scrollToSection("how-it-works")}
         >
           How It Works
-        </Button>
-        <Button 
-          variant="ghost" 
-          className={activeSection === "testimonials" ? "text-blue-600 dark:text-blue-400" : ""}
-          onClick={() => scrollToSection("testimonials")}
-        >
-          Testimonials
         </Button>
         <Button 
           variant="ghost" 
@@ -161,13 +153,6 @@ export default function Navbar() {
             onClick={() => scrollToSection("pricing")}
           >
             Pricing
-          </Button>
-          <Button 
-            variant="ghost" 
-            className={`justify-start ${activeSection === "testimonials" ? "text-blue-600 dark:text-blue-400" : ""}`}
-            onClick={() => scrollToSection("testimonials")}
-          >
-            Testimonials
           </Button>
           <Button 
             variant="ghost" 

@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SplineScene } from "@/components/ui/splite";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function HeroSection() {  
   // Animation variants for staggered animations  
@@ -92,34 +93,18 @@ export default function HeroSection() {
         >
           HireX uses advanced AI to analyze resumes and conduct intelligent interviews,
           helping you find the perfect candidates quickly and efficiently while reducing bias and saving time.
-        </motion.p>
-        <motion.div 
+        </motion.p>        <motion.div 
           className="flex flex-col sm:flex-row gap-4"
           variants={itemVariants}
         >
           <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:scale-105 transition">Get Started Free</Button>
-          <Button size="lg" variant="outline" className="hover:scale-105 transition">Book a Demo</Button>
-        </motion.div>        <motion.div 
+          <Link href="/demo" passHref>
+            <Button size="lg" variant="outline" className="hover:scale-105 transition w-full">Try out the Demo</Button>
+          </Link>
+        </motion.div><motion.div 
           className="mt-8 flex items-center gap-2"
           variants={itemVariants}
         >
-          <div className="flex -space-x-2">
-            <Avatar className="border-2 border-white">
-              <AvatarImage src="https://i.pravatar.cc/100?img=1" />
-              <AvatarFallback>JD</AvatarFallback>
-            </Avatar>
-            <Avatar className="border-2 border-white">
-              <AvatarImage src="https://i.pravatar.cc/100?img=2" />
-              <AvatarFallback>SM</AvatarFallback>
-            </Avatar>
-            <Avatar className="border-2 border-white">
-              <AvatarImage src="https://i.pravatar.cc/100?img=3" />
-              <AvatarFallback>RK</AvatarFallback>
-            </Avatar>
-          </div>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            <span className="font-bold">500+</span> companies are already using HireX
-          </p>
         </motion.div>
         
         <motion.div 
