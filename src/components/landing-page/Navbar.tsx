@@ -1,13 +1,14 @@
 'use client'
-'use client'
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [scrolled, setScrolled] = useState(false);
-
+  const router = useRouter();
   // Handle navbar background change on scroll
   useEffect(() => {
     const handleScroll = () => {
@@ -62,7 +63,7 @@ export default function Navbar() {
       scrolled ? "bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md shadow-sm" : "bg-transparent"
     }`}>
       <div className="flex items-center gap-2">        <a href="#" onClick={() => scrollToSection("hero")} className="flex items-center gap-2">
-          <img src="/hirex.svg" alt="HireX Logo" className="h-8" />
+          <Image src="/hirex.svg" alt="HireX Logo" width={32} height={32} className="h-8 w-auto" />
           <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full dark:bg-blue-900 dark:text-blue-200">Beta</span>
         </a>
       </div>
@@ -100,8 +101,8 @@ export default function Navbar() {
       </div>
       
       <div className="flex gap-2 items-center">
-        <Button variant="outline" className="hidden sm:flex">Log In</Button>
-        <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">Sign Up</Button>
+        <Button onClick={() => router.push("/login")} variant="outline" className="hidden sm:flex">Log In</Button>
+        <Button onClick={() => router.push("/register")} className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">Sign Up</Button>
         
         {/* Mobile Menu Button */}
         <button 
@@ -161,7 +162,7 @@ export default function Navbar() {
           >
             Contact
           </Button>
-          <Button variant="outline" className="w-full mt-2">
+          <Button onClick={() => router.push("/login")} variant="outline" className="w-full mt-2">
             Log In
           </Button>
         </div>

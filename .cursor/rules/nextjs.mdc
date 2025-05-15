@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+always prefer functional code,
+use api routes for 3rd party requests in nextjs to keep api keys private and get the api keys from environment variables
+
+in case of cluttered code create utility functions and store them in /lib directory

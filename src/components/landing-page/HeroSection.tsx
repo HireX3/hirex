@@ -1,6 +1,5 @@
 'use client'
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SplineScene } from "@/components/ui/splite";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";

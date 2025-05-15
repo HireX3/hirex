@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowLeft, Upload, FileText, CheckCircle, Briefcase, Mic, MicOff } from 'lucide-react'
+import { ArrowLeft, Upload, CheckCircle, Mic, MicOff } from 'lucide-react'
 
 // Job description options
 const jobOptions = [
@@ -51,7 +51,7 @@ const interviewQuestions = {
     "Can you explain your experience with machine learning algorithms?",
     "How do you approach cleaning and preprocessing large datasets?",
     "Describe a data science project where you derived significant insights.",
-    "How do you validate your models and ensure they aren't overfitting?",
+    "How do you validate your models and ensure they aren&apos;t overfitting?",
     "Explain how you would communicate complex findings to non-technical stakeholders."
   ],
   'product-manager': [
@@ -78,7 +78,7 @@ export default function DemoPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [isRecording, setIsRecording] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [interviewComplete, setInterviewComplete] = useState(false)
+  const [_interviewComplete, setInterviewComplete] = useState(false)
   const [transcript, setTranscript] = useState<{question: string, answer: string}[]>([])
   const [analysis, setAnalysis] = useState<{
     summary: string
@@ -362,7 +362,7 @@ export default function DemoPage() {
           >
             <h2 className="text-2xl font-bold mb-6">Select Job Position</h2>
             <p className="mb-8 text-neutral-600 dark:text-neutral-300">
-              Choose the job position you're hiring for. This will help our AI tailor the interview 
+              Choose the job position you&apos;re hiring for. This will help our AI tailor the interview 
               questions and CV analysis to the specific role requirements.
             </p>
             
@@ -419,7 +419,7 @@ export default function DemoPage() {
           >
             <h2 className="text-2xl font-bold mb-6">Upload Resume/CV</h2>
             <p className="mb-8 text-neutral-600 dark:text-neutral-300">
-              Upload a candidate's resume for AI analysis. Our system will extract key information 
+              Upload a candidate&apos;s resume for AI analysis. Our system will extract key information 
               and provide insights on their fit for the {jobOptions.find(j => j.id === selectedJob)?.title} role.
             </p>
 
@@ -483,7 +483,7 @@ export default function DemoPage() {
 
             <div className="bg-neutral-50 dark:bg-neutral-900 p-6 rounded-lg mb-8">
               <div className="flex items-start mb-6">
-                <FileText size={24} className="text-blue-600 mr-4 flex-shrink-0 mt-1" />
+                <CheckCircle size={24} className="text-green-500 mr-4 flex-shrink-0 mt-1" />
                 <div>
                   <h3 className="font-medium">{file?.name}</h3>
                   <p className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -709,7 +709,7 @@ export default function DemoPage() {
           >
             <h2 className="text-2xl font-bold mb-6">Complete Hiring Assessment</h2>
             <p className="mb-8 text-neutral-600 dark:text-neutral-300">
-              Based on the candidate's CV and interview performance, our AI has generated a comprehensive assessment for the {jobOptions.find(j => j.id === selectedJob)?.title} position.
+              Based on the candidate&lsquo;s CV and interview performance, our AI has generated a comprehensive assessment for the {jobOptions.find(j => j.id === selectedJob)?.title} position.
             </p>
             
             {/* Overall scores */}
